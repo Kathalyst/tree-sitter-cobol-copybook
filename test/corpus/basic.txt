@@ -1,0 +1,135 @@
+// Example COBOL Copybook file (example.cpy)
+      * Customer record layout
+       01  CUSTOMER-RECORD.
+           05  CUST-ID                 PIC 9(10).
+           05  CUST-NAME.
+               10  CUST-FIRST-NAME     PIC X(20).
+               10  CUST-LAST-NAME      PIC X(30).
+           05  CUST-ADDRESS.
+               10  CUST-STREET         PIC X(50).
+               10  CUST-CITY           PIC X(30).
+               10  CUST-STATE          PIC XX.
+               10  CUST-ZIP            PIC 9(5).
+           05  CUST-PHONE              PIC X(10).
+           05  CUST-EMAIL              PIC X(50).
+           05  CUST-BALANCE            PIC S9(7)V99 COMP-3.
+           05  CUST-CREDIT-LIMIT       PIC 9(7)V99.
+           05  CUST-STATUS             PIC X.
+               88  ACTIVE              VALUE 'A'.
+               88  INACTIVE            VALUE 'I'.
+               88  SUSPENDED           VALUE 'S'.
+           05  CUST-ORDERS             OCCURS 10 TIMES.
+               10  ORDER-ID            PIC 9(10).
+               10  ORDER-DATE          PIC 9(8).
+               10  ORDER-AMOUNT        PIC S9(7)V99 COMP-3.
+
+// Test corpus for tree-sitter (corpus/basic.txt)
+==================
+Simple data item
+==================
+
+01 CUSTOMER-NAME PIC X(30).
+
+---
+
+(copybook
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string))))
+
+==================
+Nested structure
+==================
+
+01 CUSTOMER-RECORD.
+   05 CUST-ID PIC 9(10).
+   05 CUST-NAME PIC X(30).
+
+---
+
+(copybook
+  (data_description_entry
+    (level_number)
+    (data_name (identifier)))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string)))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string))))
+
+==================
+88 level items
+==================
+
+05 CUST-STATUS PIC X.
+   88 ACTIVE VALUE 'A'.
+   88 INACTIVE VALUE 'I'.
+
+---
+
+(copybook
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string)))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (value_clause (literal (string_literal))))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (value_clause (literal (string_literal)))))
+
+==================
+OCCURS clause
+==================
+
+05 MONTHLY-SALES OCCURS 12 TIMES PIC S9(7)V99.
+
+---
+
+(copybook
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (occurs_clause (integer))
+    (picture_clause (picture_string))))
+
+==================
+REDEFINES clause
+==================
+
+05 DATE-YYYYMMDD PIC 9(8).
+05 DATE-FIELDS REDEFINES DATE-YYYYMMDD.
+   10 DATE-YYYY PIC 9(4).
+   10 DATE-MM PIC 99.
+   10 DATE-DD PIC 99.
+
+---
+
+(copybook
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string)))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (redefines_clause (identifier)))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string)))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string)))
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string))))

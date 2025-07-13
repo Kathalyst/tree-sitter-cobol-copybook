@@ -1,0 +1,23 @@
+{
+  "grammars": [
+    {
+      "name": "cobol_copybook",
+      "scope": "source.cobol.copybook",
+      "path": ".",
+      "file-types": ["cpy", "copy", "cbl"],
+      "highlights": "queries/highlights.scm",
+      "injection-regex": "^(cobol|copybook)$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "COBOL copybook grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Anushka Singh",
+        "email": "anushka@kathalyst.ai"
+      }
+    ]
+  }
+}

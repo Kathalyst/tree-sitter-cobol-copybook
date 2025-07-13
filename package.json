@@ -1,0 +1,35 @@
+{
+  "name": "tree-sitter-cobol-copybook",
+  "version": "0.1.0",
+  "description": "COBOL copybook grammar for tree-sitter",
+  "main": "index.js",
+  "keywords": [
+    "parser",
+    "lexer",
+    "tree-sitter",
+    "cobol",
+    "copybook"
+  ],
+  "author": "Anushka Singh",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.8"
+  },
+  "scripts": {
+    "test": "tree-sitter test",
+    "generate": "tree-sitter generate"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.cobol.copybook",
+      "file-types": [
+        "cpy",
+        "copy",
+        "cbl"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+// Save this as test/corpus/minimal.txt
+
+==================
+Minimal test
+==================
+
+01 TEST PIC X(30).
+
+---
+
+(copybook
+  (data_description_entry
+    (level_number)
+    (data_name (identifier))
+    (picture_clause (picture_string))))
